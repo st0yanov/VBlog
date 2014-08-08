@@ -162,11 +162,19 @@ nav a.active {
    Author's custom styles
    ========================================================================== */
 
+.main article.full {
+    width: 100%;
+}
 
+a.dark, a:visited.dark {
+    color: #ffffff;
+    text-decoration: none;
+}
 
-
-
-
+a:hover.dark {
+    color: #cccccc;
+    border-bottom: 1px dotted #ffffff;
+}
 
 
 
@@ -180,7 +188,7 @@ nav a.active {
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 480px) {
+@media only screen and (min-width: 623px) {
 
 /* ====================
     INTERMEDIATE: Menu
@@ -188,9 +196,8 @@ nav a.active {
 
     nav a {
         float: left;
-        width: 27%;
-        margin: 0 1.7%;
-        padding: 25px 2%;
+        margin-left: 10px;
+        padding: 25px;
         margin-bottom: 0;
     }
 
@@ -215,7 +222,7 @@ nav a.active {
     }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 982px) {
 
 /* ====================
     WIDE: CSS3 Effects
@@ -238,7 +245,15 @@ nav a.active {
 
     nav {
         float: right;
-        width: 38%;
+        width: 70%;
+    }
+
+    nav ul {
+        float: right;
+    }
+
+    nav ul li {
+        float: left;
     }
 
 /* ============
@@ -266,6 +281,7 @@ nav a.active {
         width: 1026px; /* 1140px - 10% for margins */
         margin: 0 auto;
     }
+
 }
 
 /* ==========================================================================

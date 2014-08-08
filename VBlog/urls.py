@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     # url(r'^$', 'VBlog.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', include('Apps.Blog.urls')),
+    url(r'^/?', include('Apps.Blog.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

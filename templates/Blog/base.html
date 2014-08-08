@@ -23,12 +23,13 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <h1 class="title">Блогът на Веско</h1>
+                <h1 class="title"><a href="{% url "Blog-home" %}" class="dark">Блогът на Веско</a></h1>
                 <nav>
                     <ul>
-                        <li><a href="#">За мен</a></li>
-                        <li><a href="#">Портфолио</a></li>
-                        <li><a href="#">Контакти</a></li>
+                        <li><a {% ifequal page "home" %}class="active"{% endifequal %} href="{% url "Blog-home" %}">Начало</a></li>
+                        <li><a {% ifequal page "about" %}class="active"{% endifequal %} href="{% url "Blog-about" %}">За мен</a></li>
+                        <li><a {% ifequal page "portfolio" %}class="active"{% endifequal %} href="{% url "Blog-portfolio" %}">Портфолио</a></li>
+                        <li><a {% ifequal page "contacts" %}class="active"{% endifequal %} href="{% url "Blog-contacts" %}">Контакти</a></li>
                     </ul>
                 </nav>
             </header>
@@ -44,7 +45,7 @@
 
         <div class="footer-container">
             <footer class="wrapper">
-                <h3>VBlog - Open Source Blog System</h3>
+                <h3><a href="{% url "Blog-about_vblog" %}" class="dark">VBlog - Open Source Blog System</a></h3>
             </footer>
         </div>
 
