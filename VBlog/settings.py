@@ -28,6 +28,11 @@ STATICFILES_DIRS = (
     STATIC_PATH,
 )
 
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'static/media')
+MEDIA_URL = '/static/media/'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -52,6 +57,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'ckeditor',
+    'autoslug',
     'Apps.Blog',
 )
 

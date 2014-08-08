@@ -1,12 +1,25 @@
 from django.shortcuts import render
 from datetime import date
 
+from Apps.Blog.models import Article
+
 # Create your views here.
 def home(request):
     context_dictionary = {
         'page': 'home',
     }
     return render(request, 'Blog/home.html', context_dictionary)
+
+def view_article(request, slug):
+    article = Article.objects.get(slug=slug)
+    
+    context_dictionary = {
+        'page': 'view_article',
+        'article': article,
+    }
+
+    return render(request, 'Blog/view_article.html', context_dictionary)
+
 
 def about(request):
     context_dictionary = {

@@ -1,0 +1,9 @@
+{% extends "Blog/base.html" %}
+{% block title_block %}За VBlog{% endblock %}
+{% block content_block %}
+<article class="full">
+    <h1>{{ article.title }}</h1>
+    <hr />
+    {{ article.content }}
+</article>
+{% endblock %}
