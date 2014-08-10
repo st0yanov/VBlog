@@ -176,12 +176,32 @@ a:hover.dark {
     border-bottom: 1px dotted #ffffff;
 }
 
+.left {
+    float: left;
+}
 
+.right {
+    float: right;
+}
 
+.clear {
+    clear: both;
+}
 
-
-
-
+.tag {
+    background-color: #097054;
+    color: #ffffff;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 10px;
+    padding: 3px 7px;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
 
 
 /* ==========================================================================

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from datetime import date
-
+from django.http import Http404
 from Apps.Blog.models import Article
 
 # Create your views here.
@@ -11,8 +11,17 @@ def home(request):
     return render(request, 'Blog/home.html', context_dictionary)
 
 def view_article(request, slug):
-    article = Article.objects.get(slug=slug)
-    
+    try:
+        article = Article.objects.get(slug=slug, published=True)
+    except Article.DoesNotExist:
+        raise Http404
+
+    tags = article.tags.split(',')
+    for tag in tags:
+        tag.strip()
+
+    article.tags = tags
+
     context_dictionary = {
         'page': 'view_article',
         'article': article,

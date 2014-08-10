@@ -15,7 +15,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ['title', 'published', 'pub_date']
     ordering = ['pub_date']
     actions = [make_published, make_draft]
-    exclude = ['author']
+    exclude = ['author', 'slug']
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'author', None) is None:
