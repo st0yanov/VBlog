@@ -176,6 +176,16 @@ a:hover.dark {
     border-bottom: 1px dotted #ffffff;
 }
 
+a.light, a:visited.light {
+    color: #666666;
+    text-decoration: none;
+}
+
+a:hover.light {
+    color: #333333;
+    border-bottom: 1px dotted #666666;
+}
+
 .left {
     float: left;
 }
@@ -203,6 +213,26 @@ a:hover.dark {
     white-space: nowrap;
 }
 
+article.home (h1,h2,h3,h4,h5,h6) {
+    margin: 0 0 5px 0;
+}
+
+article hr {
+    margin: 5px 0;
+}
+
+article p {
+    margin: 5px 0;
+}
+
+article.home {
+    border-bottom: 4px dashed #cccccc;
+    margin-bottom: 20px;
+}
+
+.pagination {
+    text-align: center;
+}
 
 /* ==========================================================================
    Media Queries

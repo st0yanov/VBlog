@@ -3,11 +3,28 @@ from datetime import date
 from django.http import Http404
 from Apps.Blog.models import Article
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 # Create your views here.
 def home(request):
+    article_list = Article.objects.filter(published=True).order_by('-pub_date')
+    paginator = Paginator(article_list, 5)
+
+    page = request.GET.get('page')
+
+    try:
+        articles = paginator.page(page)
+    except PageNotAnInteger:
+        articles = paginator.page(1)
+    except EmptyPage:
+        articles = paginator.page(paginator.num_pages)
+
     context_dictionary = {
         'page': 'home',
+        'articles': articles,
+        'url': request.build_absolute_uri()
     }
+
     return render(request, 'Blog/home.html', context_dictionary)
 
 def view_article(request, slug):
@@ -21,6 +38,7 @@ def view_article(request, slug):
         tag.strip()
 
     article.tags = tags
+    article.url = request.build_absolute_uri()
 
     context_dictionary = {
         'page': 'view_article',
