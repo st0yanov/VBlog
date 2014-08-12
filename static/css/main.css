@@ -234,6 +234,49 @@ article.home {
     text-align: center;
 }
 
+.social-icon {
+    width: 32px;
+    height: 32px;
+    margin: 5px;
+    padding: 5px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.social-icon:hover {
+    -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+       -moz-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+            box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.8);
+}
+
+.facebook {
+    background: url('/static/img/social-icons/facebook.png') center #3b5998 no-repeat;
+}
+
+.twitter {
+    background: url('/static/img/social-icons/twitter.png') center #48c4d2 no-repeat;
+}
+
+.gplus {
+    background: url('/static/img/social-icons/google+.png') center #d94a39 no-repeat;
+}
+
+.linkedin {
+    background: url('/static/img/social-icons/linkedin.png') center #71b2d0 no-repeat;
+}
+
+.github {
+    background: url('/static/img/social-icons/github.png') center #444444 no-repeat;
+}
+
+.rss {
+    background: url('/static/img/social-icons/rss.png') center #fe9900 no-repeat;
+}
+
+.youtube {
+    background: url('/static/img/social-icons/youtube.png') center #f45750 no-repeat;
+}
+
 /* ==========================================================================
    Media Queries
    ========================================================================== */
@@ -318,6 +361,11 @@ article.home {
     .main aside {
         float: right;
         width: 28%;
+    }
+
+    .main .article_list {
+        float: left;
+        width: 57%
     }
 }
 

@@ -56,6 +56,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whoosh',
+    'haystack',
     'south',
     'ckeditor',
     'autoslug',
@@ -98,3 +100,14 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Whoosh configuration
+WHOOSH_INDEX = os.path.join(PROJECT_PATH, 'whoosh/')
+
+# Haystack configuration
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': WHOOSH_INDEX,
+    },
+}
