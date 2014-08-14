@@ -105,6 +105,7 @@ USE_TZ = True
 WHOOSH_INDEX = os.path.join(PROJECT_PATH, 'whoosh/')
 
 # Haystack configuration
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
