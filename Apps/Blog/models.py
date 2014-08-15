@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 from autoslug import AutoSlugField
 
+import os, time
+
 # Create your models here.
 
 class Article(models.Model):
@@ -19,3 +21,20 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return '/%s' % self.slug
+
+def generate_filename(instance, old_filename):
+    ext = os.path.splitext(old_filename)[1]
+    filename = str(time.time())+ext
+
+    return 'portfolio/' + filename
+
+class Portfolio(models.Model):
+    title = models.CharField(max_length=128)
+    url = models.URLField()
+    description = RichTextField()
+    technologies = models.CharField(max_length=256)
+    screenshot = models.ImageField(upload_to=generate_filename)
+    pub_date = models.DateTimeField()
+
+    def __unicode__(self):
+        return self.title

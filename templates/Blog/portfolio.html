@@ -1,5 +1,23 @@
 {% extends "Blog/base.html" %}
 {% block title_block %}Портфолио{% endblock %}
 {% block content_block %}
-<article>Портфолио</article>
+{% if projects %}
+    {% load static %}
+    {% for project in projects %}
+        <article class="home full">
+            <h2><a href="{{ project.url }}" target="_blank" class="light">{{ project.title }}</a></h2>
+            <small>{{ project.pub_date|date:"d.m.Y" }} в {{ project.pub_date|time:"H:i:s" }}</small>
+            <div><strong>Снимка:</strong> <i>(кликнете за пълен размер)</i><br />
+            <a href="{% get_media_prefix %}{{ project.screenshot }}" target="_blank"><img src="{% get_media_prefix %}{{ project.screenshot }}" width="25%"></a></div>
+            <hr />
+            <div><strong>Технологии:</strong><p>{{ project.technologies }}</p></div>
+            <hr />
+            <div><strong>Описание:</strong>{{ project.description|safe }}</div>
+        </article>
+    {% endfor %}
+{% else %}
+    <article class="full">
+        <strong>Все още няма добавени проекти към портфолиото.</strong>
+    </article>
+{% endif %}
 {% endblock %}

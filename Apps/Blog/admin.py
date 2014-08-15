@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Apps.Blog.models import Article
+from Apps.Blog.models import Article, Portfolio
 
 # Register your models here.
 def make_published(modeladmin, request, queryset):
@@ -13,7 +13,7 @@ make_draft.short_description = 'Mark selected articles as draft.'
 class ArticleAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
     list_display = ['title', 'published', 'pub_date']
-    ordering = ['pub_date']
+    ordering = ['-pub_date']
     actions = [make_published, make_draft]
     exclude = ['author', 'slug']
 
@@ -22,6 +22,10 @@ class ArticleAdmin(admin.ModelAdmin):
             obj.author = request.user
         obj.save()
 
-
+class PortfolioAdmin(admin.ModelAdmin):
+    date_hierarchy = 'pub_date'
+    list_display = ['title', 'screenshot', 'pub_date']
+    ordering = ['-pub_date']
 
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Portfolio, PortfolioAdmin)

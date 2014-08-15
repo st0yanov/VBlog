@@ -3,12 +3,14 @@
 from django.shortcuts import render
 from datetime import date
 from django.http import HttpResponse, Http404
-from Apps.Blog.models import Article
+from Apps.Blog.models import Article, Portfolio
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from haystack.query import SearchQuerySet
 import simplejson as json
+
+from django.utils.html import escape
 
 # Create your views here.
 def home(request):
@@ -80,7 +82,7 @@ def search_articles(request):
         articles = SearchQuerySet().filter_or(content_auto=search_text).filter_or(tags=search_text).filter_or(content=search_text).order_by('-pub_date')[:10]
         suggestions = []
         for article in articles:
-            suggestions.append({'title': article.object.title, 'url': article.object.get_absolute_url()})
+            suggestions.append({'title': escape(article.object.title), 'url': escape(article.object.get_absolute_url())})
         ok = True
     else:
         suggestions = None
@@ -135,8 +137,11 @@ def about_vblog(request):
     return render(request, 'Blog/about_vblog.html', context_dictionary)
 
 def portfolio(request):
+    projects_list = Portfolio.objects.all().order_by('-pub_date')
+
     context_dictionary = {
         'page': 'portfolio',
+        'projects': projects_list
     }
     return render(request, 'Blog/portfolio.html', context_dictionary)
 
