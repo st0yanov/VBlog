@@ -1,0 +1,4 @@
+От: {{ name }}, {{ sender_email }} ({{ sender_ip }})\n
+Относно: {{ subject }}\n
+-------------------------\n
+{{ message }}\n

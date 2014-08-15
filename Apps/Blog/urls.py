@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     url(r'^portfolio/$', 'Apps.Blog.views.portfolio', name='Blog-portfolio'),
     url(r'^contacts/$', 'Apps.Blog.views.contacts', name='Blog-contacts'),
     url(r'^search/', 'Apps.Blog.views.search_articles'),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^(?P<slug>[\w-]+)/$', 'Apps.Blog.views.view_article', name='Blog-view_article'),
 )

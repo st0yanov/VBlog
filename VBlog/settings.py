@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+CONTACT_EMAIL = 'devphp.web@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+
 SETTINGS_DIR = os.path.dirname(__file__)
 PROJECT_PATH = os.path.abspath(os.path.join(SETTINGS_DIR, os.pardir))
 
@@ -61,6 +65,7 @@ INSTALLED_APPS = (
     'south',
     'ckeditor',
     'autoslug',
+    'captcha',
     'Apps.Blog',
 )
 

@@ -12,6 +12,12 @@ import simplejson as json
 
 from django.utils.html import escape
 
+from Apps.Blog.forms import ContactForm
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+
+from django.conf import settings
+
 # Create your views here.
 def home(request):
     # Get last 5 articles
@@ -146,7 +152,47 @@ def portfolio(request):
     return render(request, 'Blog/portfolio.html', context_dictionary)
 
 def contacts(request):
+    success = False
+    
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            sender_email = form.cleaned_data['sender_email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+
+            email_dictionary = {
+                'name': name,
+                'sender_email': sender_email,
+                'sender_ip': get_client_ip(request),
+                'subject': subject,
+                'message': message,
+            }
+
+            email_plaintext = render_to_string('Blog/emails/contact_plaintext.txt', email_dictionary)
+            email_html = render_to_string('Blog/emails/contact.html', email_dictionary)
+
+            msg = EmailMultiAlternatives(subject, email_plaintext, sender_email, [settings.CONTACT_EMAIL])
+            msg.attach_alternative(email_html, 'text/html')
+            if msg.send():
+                success = True
+
+    else:
+        form = ContactForm()
+
     context_dictionary = {
         'page': 'contacts',
+        'form': form,
+        'success': success
     }
     return render(request, 'Blog/contacts.html', context_dictionary)
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip

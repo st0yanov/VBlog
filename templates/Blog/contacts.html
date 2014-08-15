@@ -1,5 +1,16 @@
 {% extends "Blog/base.html" %}
 {% block title_block %}Конкакти{% endblock %}
 {% block content_block %}
-<article>Test3523453</article>
+<article>
+    <h1>Контакти:</h1>
+    {% if success %}
+        <strong>Съобщението Ви беше изпратено успешно!</strong>
+    {% else %}
+        <form method="POST" action="{% url "Blog-contacts" %}">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" name="submit" value="Изпрати!" />
+        </form>
+    {% endif %}
+</article>
 {% endblock %}
