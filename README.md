@@ -1,6 +1,7 @@
 # VBlog - Open Source Blog System
-Версия: *0.1 Alpha (testing)*
-Демо: http://veskoy.com
+**Версия:** *0.1 Alpha (testing)*
+
+**Демо:** http://veskoy.com
 
 ## Какво е VBlog?
 **VBlog** идва от **Veskoy's Blog (Блогът на Веско)** и е проста авторска блог система с отворен код за личния ми уебсайт.
