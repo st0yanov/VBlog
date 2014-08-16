@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.pyc
 
 # C extensions
 *.so
@@ -51,3 +52,5 @@ docs/_build/
 
 # PyBuilder
 target/
+
+google_analytics.js
