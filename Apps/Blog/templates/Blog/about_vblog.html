@@ -1,0 +1,32 @@
+{% extends "Blog/base.html" %}
+{% block title_block %}За VBlog{% endblock %}
+{% block meta_title %}За VBlog{% endblock %}
+{% block meta_og_title %}За VBlog{% endblock %}
+
+{% block description_block %}VBlog идва от Veskoy's Blog (Блогът на Веско) и е проста авторска блог система с отворен код за личния ми уебсайт.{% endblock %}
+{% block meta_og_description %}VBlog идва от Veskoy's Blog (Блогът на Веско) и е проста авторска блог система с отворен код за личния ми уебсайт.{% endblock %}
+
+{% block keywords_block %}блог,веско,vblog,система,python,django{% endblock %}
+{% block meta_og_url %}{{ url }}{% endblock %}
+
+{% block content_block %}
+<article class="full">
+    <h1>Какво е VBlog?</h1>
+    <hr />
+    <p><strong>VBlog</strong> идва от <strong>Veskoy's Blog (Блогът на Веско)</strong> и е проста авторска блог система с отворен код за личния ми уебсайт.</p>
+
+    <h1>Защо беше създаден?</h1>
+    <hr />
+    <p>Причината да създам <strong>VBlog</strong> преди всичко беше, че започнах да уча Python (Django) и един такъв проект перфектно успя да ме въведе в основите на езика и фреймуърка.</p>
+    <p>На второ място отдавна бях запланувал ъпдейт на личния ми уебсайт. Wordpress беше прекалено тежък и тромав, а не използвах на 100% възможностите му. Затова ми трябваше малка, проста система, която сам да си поддържам и да не ме тормози с ъпдейти през няколко дни. Освен това много ме дразнеше response time-а на предишния ми блог, който на моменти надхвърляше 3 секунди.</p>
+
+    <h1>Какво използвах?</h1>
+    <hr />
+    <p><strong>VBlog</strong> е написан на <strong>Python</strong> с помощта на <strong>MVT (Model, View, Template)</strong> фреймуърка <strong>Django</strong>.</p>
+    <p>За потребителския интерфейс използвах <strong>HTML5 Responsive Boilerplate</strong> предоставен от <a href="http://www.initializr.com/" target="_blank">Initializr</a>. Стилът му е леко модифициран от мен.</p>
+
+    <h1>100% Open Source</h1>
+    <hr />
+    <p>Може да изтеглите, модифицирате, надграждате, използвате за собствени нужди проекта от <a href="https://github.com/veskoy/VBlog">Github</a>.</p>
+</article>
+{% endblock %}

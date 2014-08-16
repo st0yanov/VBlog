@@ -18,6 +18,11 @@ from django.template.loader import render_to_string
 
 from django.conf import settings
 
+from captcha.models import CaptchaStore
+from captcha.helpers import captcha_image_url
+
+from custom_settings import *
+
 # Create your views here.
 def home(request):
     # Get last 5 articles
@@ -33,44 +38,7 @@ def home(request):
     except EmptyPage:
         articles = paginator.page(paginator.num_pages)
 
-    # Social Data
-    social_data = [
-        {
-            'name': 'rss',
-            'href': '#',
-            'title': 'RSS',
-        },
-        {
-            'name': 'facebook',
-            'href': 'https://www.facebook.com/Veskoyy',
-            'title': 'Facebook профил'
-        },
-        {
-            'name': 'twitter',
-            'href': 'https://twitter.com/VeskoyCom',
-            'title': 'Twitter профил'
-        },
-        {
-            'name': 'linkedin',
-            'href': 'https://www.linkedin.com/pub/veselin-stoyanov/a1/a4/44b',
-            'title': 'LinkedIn профил'
-        },
-        {
-            'name': 'gplus',
-            'href': 'https://plus.google.com/u/0/104236216198044213208',
-            'title': 'Google+ профил'
-        },
-        {
-            'name': 'github',
-            'href': 'https://github.com/veskoy',
-            'title': 'GitHub профил'
-        },
-        {
-            'name': 'youtube',
-            'href': 'https://www.youtube.com/user/VeskoyCom',
-            'title': 'YouTube профил'
-        },
-    ]
+    social_data[0].update({'href': reverse('Blog-articles_rss')})
 
     context_dictionary = {
         'page': 'home',
@@ -116,6 +84,7 @@ def view_article(request, slug):
 
     context_dictionary = {
         'page': 'view_article',
+        'url': request.build_absolute_uri(),
         'article': article,
     }
 
@@ -125,6 +94,7 @@ def view_article(request, slug):
 def about(request):
     context_dictionary = {
         'page': 'about',
+        'url': request.build_absolute_uri(),
     }
 
     born = date(1996, 4, 10)
@@ -132,12 +102,15 @@ def about(request):
     age = today.year-born.year-((today.month, today.day) < (born.month, born.day))
 
     context_dictionary['age'] = age
+    social_data[0].update({'href': reverse('Blog-articles_rss')})
+    context_dictionary['social_data'] = social_data
 
     return render(request, 'Blog/about.html', context_dictionary)
 
 def about_vblog(request):
     context_dictionary = {
         'page': 'about_vblog',
+        'url': request.build_absolute_uri(),
     }
 
     return render(request, 'Blog/about_vblog.html', context_dictionary)
@@ -147,6 +120,7 @@ def portfolio(request):
 
     context_dictionary = {
         'page': 'portfolio',
+        'url': request.build_absolute_uri(),
         'projects': projects_list
     }
     return render(request, 'Blog/portfolio.html', context_dictionary)
@@ -184,9 +158,19 @@ def contacts(request):
 
     context_dictionary = {
         'page': 'contacts',
+        'url': request.build_absolute_uri(),
         'form': form,
-        'success': success
+        'success': success,
     }
+
+    if not success:
+        captcha_key = CaptchaStore.generate_key()
+        captcha_image = captcha_image_url(captcha_key)
+        context_dictionary.update({
+            'captcha_key': captcha_key,
+            'captcha_image': captcha_image,
+        })
+
     return render(request, 'Blog/contacts.html', context_dictionary)
 
 def get_client_ip(request):

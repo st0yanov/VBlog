@@ -1,0 +1,72 @@
+{% extends "Blog/base.html" %}
+{% block title_block %}Контакти{% endblock %}
+{% block meta_title %}Контакти{% endblock %}
+{% block meta_og_title %}Контакти{% endblock %}
+
+{% block description_block %}Свържете се с мен!{% endblock %}
+{% block meta_og_description %}Свържете се с мен!{% endblock %}
+
+{% block keywords_block %}блог,веско,контакти,email{% endblock %}
+{% block meta_og_url %}{{ url }}{% endblock %}
+
+{% block content_block %}
+<article class="full contacts">
+    <h1>Контакти:</h1>
+    <hr />
+    {% if success %}
+        <strong>Съобщението Ви беше изпратено успешно!</strong>
+    {% else %}
+        <form method="POST" action="{% url "Blog-contacts" %}">
+            <p>
+                <strong>Име:</strong>
+                {% if form.name.errors %}
+                    {{ form.name.errors.as_ul }}
+                {% else %}
+                    <br />
+                {% endif %}
+                <input type="text" name="name" maxlength="64" placeholder="Моля напишете вашето име." {% if form.name.value %}value="{{ form.name.value }}"{% endif %}>
+            </p>
+            <p>
+                <strong>E-Mail:</strong>
+                {% if form.sender_email.errors %}
+                    {{ form.sender_email.errors.as_ul }}
+                {% else %}
+                    <br />
+                {% endif %}
+                <input type="email" name="sender_email" placeholder="Моля напишете вашия E-Mail." {% if form.sender_email.value %}value="{{ form.sender_email.value }}"{% endif %}>
+            </p>
+            <p>
+                <strong>Тема:</strong>
+                {% if form.subject.errors %}
+                    {{ form.subject.errors.as_ul }}
+                {% else %}
+                    <br />
+                {% endif %}
+                <input type="text" name="subject" maxlength="100" placeholder="Моля напишете тема на вашето запитване." {% if form.subject.value %}value="{{ form.subject.value }}"{% endif %}>
+            </p>
+            <p>
+                <strong>Съобщение:</strong>
+                {% if form.message.errors %}
+                    {{ form.message.errors.as_ul }}
+                {% else %}
+                    <br />
+                {% endif %}
+                <textarea rows="10" name="message" placeholder="Моля пишете на КИРИЛИЦА. Съобщения на латиница няма да се преглеждат.">{% if form.message.value %}{{ form.message.value }}{% endif %}</textarea>
+            </p>
+            <p>
+                <strong>Проверка дали сте човек:</strong>
+                {% if form.captcha.errors %}
+                    {{ form.captcha.errors.as_ul }}
+                {% else %}
+                    <br />
+                {% endif %}
+                <img class="captcha" alt="captcha" src="{{ captcha_image }}">
+                <input type="hidden" value="{{ captcha_key }}" name="captcha_0" autocomplete="off">
+                <input type="text" name="captcha_1" autocomplete="off" placeholder="Моля попълнете текста от картинката.">
+            </p>
+            {% csrf_token %}
+            <input type="submit" name="submit" value="Изпрати!" />
+        </form>
+    {% endif %}
+</article>
+{% endblock %}

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 from autoslug import AutoSlugField
+from django.core.urlresolvers import reverse
 
 import os, time
 
@@ -20,7 +21,7 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return '/%s' % self.slug
+        return reverse('Blog-view_article', args=[self.slug])
 
 def generate_filename(instance, old_filename):
     ext = os.path.splitext(old_filename)[1]
@@ -38,3 +39,10 @@ class Portfolio(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        item = Portfolio.objects.get(id=self.id)
+        if item.screenshot != self.screenshot:
+            item.screenshot.delete(save=False)
+
+        super(Portfolio, self).save(*args, **kwargs)

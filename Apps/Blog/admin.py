@@ -1,5 +1,6 @@
 from django.contrib import admin
 from Apps.Blog.models import Article, Portfolio
+from django.core.cache import cache
 
 # Register your models here.
 def make_published(modeladmin, request, queryset):
@@ -20,6 +21,9 @@ class ArticleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'author', None) is None:
             obj.author = request.user
+
+        cache.delete('/'+obj.slug+'/')
+
         obj.save()
 
 class PortfolioAdmin(admin.ModelAdmin):
