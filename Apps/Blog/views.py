@@ -7,6 +7,7 @@ from Apps.Blog.models import Article, Portfolio
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.views.decorators.csrf import csrf_protect
 from haystack.query import SearchQuerySet
 import simplejson as json
 
@@ -24,6 +25,8 @@ from captcha.helpers import captcha_image_url
 from custom_settings import *
 
 # Create your views here.
+
+@csrf_protect
 def home(request):
     # Get last 5 articles
     article_list = Article.objects.filter(published=True).order_by('-pub_date')
@@ -125,6 +128,7 @@ def portfolio(request):
     }
     return render(request, 'Blog/portfolio.html', context_dictionary)
 
+@csrf_protect
 def contacts(request):
     success = False
     
