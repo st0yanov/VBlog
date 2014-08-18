@@ -55,3 +55,5 @@ target/
 
 google_analytics.js
 prod.py
+media/
+static/

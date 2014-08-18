@@ -4,6 +4,8 @@ from ckeditor.fields import RichTextField
 from autoslug import AutoSlugField
 from django.core.urlresolvers import reverse
 
+from helpers import expire_view_cache
+
 import os, time
 
 # Create your models here.
@@ -23,6 +25,15 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('Blog-view_article', args=[self.slug])
 
+    def save(self, *args, **kwargs):
+        try:
+            item = Article.objects.get(slug=self.slug)
+            expire_view_cache('Blog-view_article', [self.slug])
+        except Article.DoesNotExist:
+            pass
+        expire_view_cache('Blog-home')
+        super(Article, self).save(*args, **kwargs)
+
 def generate_filename(instance, old_filename):
     ext = os.path.splitext(old_filename)[1]
     filename = str(time.time())+ext
@@ -41,8 +52,12 @@ class Portfolio(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        item = Portfolio.objects.get(id=self.id)
-        if item.screenshot != self.screenshot:
-            item.screenshot.delete(save=False)
+        try:
+            item = Portfolio.objects.get(id=self.id)
+            if item.screenshot != self.screenshot:
+                item.screenshot.delete(save=False)
+        except Portfolio.DoesNotExist:
+            pass
 
+        expire_view_cache('Blog-portfolio')
         super(Portfolio, self).save(*args, **kwargs)

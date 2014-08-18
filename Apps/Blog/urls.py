@@ -5,7 +5,7 @@ from Apps.Blog.feeds import ArticleFeed, PortfolioFeed
 
 urlpatterns = patterns('',
     url(r'^ckeditor/', include('ckeditor.urls')),
-    url(r'^$', home, name='Blog-home'),
+    url(r'^$', cache_page(1 * 60 * 60)(home), name='Blog-home'),
     url(r'^about/$', cache_page(24 * 60 * 60)(about), name='Blog-about'),
     url(r'^about-vblog/$', cache_page(24 * 60 * 60)(about_vblog), name='Blog-about_vblog'),
     url(r'^portfolio/$', cache_page(1 * 60 * 60)(portfolio), name='Blog-portfolio'),
@@ -14,5 +14,5 @@ urlpatterns = patterns('',
     url(r'^captcha/', include('captcha.urls')),
     url(r'^rss/blog/$', ArticleFeed(), name='Blog-articles_rss'),
     url(r'^rss/portfolio/$', PortfolioFeed(), name='Blog-portfolio_rss'),
-    url(r'^(?P<slug>[\w-]+)/$', cache_page(24 * 60 * 60)(view_article), name='Blog-view_article'),
+    url(r'^(?P<slug>[\w-]+)/$', cache_page(6 * 60 * 60)(view_article), name='Blog-view_article'),
 )

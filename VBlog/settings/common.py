@@ -41,8 +41,6 @@ USE_TZ = True
 ###### START MEDIA CONFIGURATION ######
 MEDIA_ROOT = normpath(join(DJANGO_ROOT, 'media'))
 MEDIA_URL = '/media/'
-
-CKEDITOR_UPLOAD_PATH = 'uploads/'
 ###### END MEDIA CONFIGURATION ######
 
 ###### START STATIC CONFIGURATION ######
@@ -125,6 +123,15 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 ###### END HAYSTACK CONFIGURATION ######
+
+###### START CKEDITOR CONFIGURATION ######
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
+###### END CKEDITOR CONFIGURATION ######
 
 ###### START SECRET_KEY CONFIGURATION ######
 try:

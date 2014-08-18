@@ -1,5 +1,5 @@
 # VBlog - Open Source Blog System
-**Версия:** *0.1 Alpha (testing)*
+**Версия:** *0.1.2 Alpha (testing)*
 
 **Демо:** http://veskoy.com
 
